@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  web:
+    image: nginx
+    ports:
+      - "8080:80"
+    links:
+      - fpm
+    volumes:
+        - .:/opt/app:ro
+        - ./.docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+
+  fpm:
+    build: ./.docker/fpm
+    links:
+      - vault
+    volumes:
+      - .:/opt/app
+    working_dir: /opt/app
+
+  vault:
+    image: vault
+    ports:
+      - "8200:8200"
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: 6bc61108-a72c-49cf-92ef-719b3789360e
