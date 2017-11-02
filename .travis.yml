@@ -5,7 +5,7 @@ php:
   - '7.1'
 
 install:
-  - pecl install -f apcu
+  - yes | pecl install -f apcu
   - travis_retry composer update --prefer-dist
 
 script: phpunit --coverage-clover=coverage.clover
