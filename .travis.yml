@@ -1,7 +1,10 @@
 language: php
+dist: xenial
 
 php:
   - '7.1'
+
+install: travis_retry composer update --prefer-dist
 
 script: phpunit --coverage-clover=coverage.clover
 after_script:
